@@ -1,3 +1,3 @@
 # Bash
 
-![full_colored_light.png]
+![bash](full_colored_light.png)
