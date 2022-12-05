@@ -1,3 +1,3 @@
 # Bash
 
-![bash](full_colored_light.png)
+![bash](icons/bash_logo.png)
