@@ -14,9 +14,8 @@ Si está trabanado en Ubuntu, tiene siete terminales virtuales diferentes. El en
 Puede abrir el shell usando `Ctrl+Alt+F1`. Después de eso, la GUI familiar desaparecerá y se monstrará una de las terminales virtuales.
 
 Si ve algo como esto, entonces está trabajando en modo interactivo:
-```bash
-user@host:~$
-```
+
+    user@host:~$
 
 Aquí puede ingresar una variedad de comandos Unix, como `ls`, `grep`, `cd`, `mkdir`, `rm` y ver el resultado de su ejecución.
 
@@ -38,7 +37,7 @@ sh my_script.sh
 bash my_script.sh
 ```
 
-Puede simplificar la invicación del script haciendolo un archivo ejecutable:
+Puede simplificar la invocación del script haciendolo un archivo ejecutable:
 
     chmod +x my_script.sh
 
