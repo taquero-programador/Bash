@@ -27,7 +27,7 @@ Usar una terminal virtual no es realmente conveniente. Por ejemplo, si desea edi
 - iTerm2
 - ConEmu
 
-## Modo no interactivo
+#### Modo no interactivo
 En el modo no interactivo, el shell lee los comandos de un archivo o una tubería y los ejecuta. Cuando el intérprete llega al final del archivo, el proceso de shell finaliza la sesión y vulver al proceso principal.
 
 Comando para ejecutar el shell en modo no interactivo:
