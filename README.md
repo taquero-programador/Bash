@@ -110,7 +110,7 @@ Variable | Descripción
 `$PATH` | Una lista de directorios separados por dos puntos en los que el shell busca comandos
 `$PDW` | El directorio de trabajo actual
 `$RANDOM` | Entero aleatorio entre 0 y 32767
-`$UID` | El ID del usuario real numérico del usuario actual
+`$UID` | El ID numérico del usuario real actual
 `$PS1` | La cadena de mensaje pricipal
 `$PS2` | La cadena de solicitud secundaria
 
@@ -159,7 +159,7 @@ echo {00..8..2} # 00 02 04 06 08
 ```
 
 #### Sustitución de comandos
-Las susticución de comandos nos permite evaluar un comando y sustituir su valor con otro comando o asignación de variable. La susticución de comandos se realiza cuando un comando está encerrado entre (comillas simples de lado) O `$()`. Por ejemplo:
+Las sustitución de comandos nos permite evaluar un comando y sustituir su valor con otro comando o asignación de variable. La sustitución de comandos se realiza cuando un comando está encerrado entre (comillas simples de lado) O `$()`. Por ejemplo:
 ```bash
 now=`date +%T`
 # or
