@@ -563,7 +563,7 @@ done
 ```
 
 #### Bucle `select`
-Los bucles `select` no ayudan a organizar un menú de usuario. Tiene casi la misma sintaxis que el bucle `for`:
+Los bucles `select` nos ayudan a organizar un menú de usuario. Tiene casi la misma sintaxis que el bucle `for`:
 ```bash
 select answer in elem1 elem2 .. elemN; do
     # pasos
@@ -622,4 +622,4 @@ for (( i=0; i < 10; i++ )); do
     echo $i
 done
 ```
-Imprimira los números impares del 0 al 9.
+Imprimirá los números impares del 0 al 9.
