@@ -501,4 +501,125 @@ Como en cualquier lenguaje de programación, un bucle en bash es un bucle de có
 
 Hay cuatro tipos de bucles Bash: `for`, `while`, `until` y `select`.
 
-#### Ciclo `for`
+#### Bucle `for`
+`for` es muy similar a su hermano en C. Se ve así:
+```bash
+for args in elem1 elem2 ... elemN
+do
+    # pasos
+done
+```
+
+Durante cada pasada por el bucle, `arg` toma el valor de `elem1` a `elemN`. Los valores también pueden ser comodines o expansiones de llaves.
+
+Además, podemos escribir el bucle `for` en una sola línea, en ese caso debe hacer un `;` antes de `do`:
+```bash
+for i in {1..5}; do echo $i; done
+```
+
+Si `for..in..do` le parece un poco raro, también puede escribir `for` en estilo `C-like`:
+```bash
+for (( i = 0; i < 10; i++ )); do
+    echo $i
+done
+```
+
+`for` es útil cuando queremos hacer la misma operación sobre cada archivo en un directorio. Por ejemplo, si necesitamos mover todos los archivos `.bash` a la carpeta `script` y darles permiso de ejecución:
+```bash
+#!/bin/bash
+
+for FILE in $HOME/*; do
+    mv "$file" "${HOME}/script"
+    chmod +x "${HOME}/script/${FILE}"
+done
+```
+
+#### Bucle `while`
+`while` prueba una condición y repite una secuencia de comandos siempre que esa condición sea verdadera. Una condición no es más que un primario como se usa en `if..then`. Entonces un bucle `while` se ve así:
+```bash
+while [[ condition ]]
+do
+    # pasos
+done
+```
+
+Ejemplo:
+```bash
+#!/bin/bash
+
+x=0
+while [[ $x -lt 10 ]]; do
+    echo $(( x * x ))
+    x=$(( x + 1 ))
+done
+```
+
+#### Bucle `until`
+Los bucles `until` es exactamente lo contrario de `while`. Como un `while` comprueba una condición de prueba, pero sigue en bucle mientras esta condición sea falsa:
+```bash
+until [[ condition ]]; do
+    # pasos
+done
+```
+
+#### Bucle `select`
+Los bucles `select` no ayudan a organizar un menú de usuario. Tiene casi la misma sintaxis que el bucle `for`:
+```bash
+select answer in elem1 elem2 .. elemN; do
+    # pasos
+done
+```
+
+`select` imprime todo `elem1..elemN` en pantalla con sus números de secuecia, después de eso le pregunta al usuario. Por lo regular parece `$?`. La respuesta se guardara en `answer`. Si `answer` es el número entre `1..N`, después ejecutara `statements` y `select` ira a la siguiente iteración, eso es porque deberíamos usar la declaración `break`.
+
+Ejemplo:
+```bash
+#!/bin/bash
+
+PS3="Choose the package manager "
+select ITEM in bower npm gem pip; do
+    echo "Selec  \"$ITEM\" "
+    echo -n "Enter the package name: " && read PACKAGE
+    # same
+    # read -p "Enter the package name: " PACKAGE
+    case $ITEM in
+        bower) bower install $PACKAGE;;
+        npm) npm install $PACKAGE;;
+        gem) gem install $PACKAGE;;
+        pip) pip install $PACKAGE;;
+    esac
+    break # sale del bucle infinito
+done
+```
+
+Este ejemplo, le pregunta al usuario qué administrador de paquetes le gustaría usar. Luego, nos preguntará qué paquete queremos instalar y finalmente procederá a instalarlo.
+
+Al ejecutarlo obtendremos esto:
+```bash
+$ ./my_script
+1) bower
+2) npm
+3) gem
+4) pip
+Choose the package manager: 2
+Enter the package name: bash-handbook
+<installing bash-handbook>
+```
+
+#### Control de bucle
+Hay situaciones en la que necesitamos detener un bucle antes de que finalice normalmente o pasar por alto una iteración. En estos casos, podemos usar el shell incorporado `break` y `continue`. Ambos funcionan con todo tipo de bucle.
+
+Las instrucción `break` se utiliza para salir del bucle actual antes de que finalice.
+
+Pasos para una declaración `continue` sobre una iteración:
+```bash
+#!/bin/bash
+
+for (( i=0; i < 10; i++ )); do
+    if [[ $(( i % 2 )) -eq 0 ]]; then
+        continue
+    fi
+    echo $i
+done
+```
+Imprimira los números impares del 0 al 9.
