@@ -209,12 +209,12 @@ cat "$FILE" # imprime un archivo: `Favorite Things.txt`
 ```
 
 ## Arrays
-Como en otros lenguajes de programación. un array en bash es una variable que te permite referirte a múltiples valores. En bash, los arraya también se vasan en cero, es decir, el primer elemento de un arrays es `0`.
+Como en otros lenguajes de programación. un array en bash es una variable que te permite referirte a múltiples valores. En bash, los arrays también se basan en cero, es decir, el primer elemento de un array es `0`.
 
 Cuando se trata de arrays, debemos tener en cuenta la variable de entorno especial `IFS`. `IFS`, o separador de campos de entrada, es el carácter que separa los elementos de un array. El valor predeterminado es un espacio vacío `IFS=' '`.
 
 #### Declaración de array
-En bash, creá un array simplemente asignando un valor a un índice en la variable del aray:
+En bash, creá un array simplemente asignando un valor a un índice en la variable del array:
 ```bash
 #!/bin/bash
 
@@ -247,7 +247,7 @@ fruits[0]=Apple
 fruits[1]="Desert fig"
 fruits[2]=Plum
 ```
-Queremos imprimir cada elemento del arrya en una línea separada, así que tratamos de usar `printf`:
+Queremos imprimir cada elemento del array en una línea separada, así que tratamos de usar `printf`:
 ```bash
 printf "+ %s\n" ${fruits[*]}
 
@@ -278,11 +278,11 @@ printf "+ %s\n" ${fruits[@]}
 Dentro de comillas dobles, `${fruits[@]}` se expande a un argumento separado para cada elemento del array; se conserva los espacios en blnaco en los elementos del array.
 
 #### Segmento de array
-Además, podemos extraer una porción del array usando los operadores de proción `:`:
+Además, podemos extraer una porción del array usando los operadores de porción `:`:
 ```bash
 echo ${fruits[@]:0:2} # Appele Desert fig
 ```
-En el ejemplo anterior, ${fruits[@]} se expande a todo el contenido del array, y `:0:2` extrar el segmento de longuitud 2, que comienza en el indice 0.
+En el ejemplo anterior, `${fruits[@]}` se expande a todo el contenido del array, y `:0:2` extrar el segmento de longitud 2, que comienza en el indice 0.
 
 #### Adición de elementos a un array
 Agregar elementos a un array también es bastante simple. Las asignaciones compuestas son especialmente útiles en este caso. Se puede usar así:
@@ -291,7 +291,7 @@ fruits=(Orange ${fruits[@]} Banana Cherry)
 
 echo ${fruits[@]}
 ```
-En el ejemplo anterior, `${fruits[@]}` expande a todo el contenido del array y lo sustituye en la asignación compuestas, luego asigna el nuevo valor en el array `fruits` mutando su valor original.
+En el ejemplo anterior, `${fruits[@]}` expande todo el contenido del array y lo sustituye en la asignación compuestas, luego asigna el nuevo valor en el array `fruits` mutando su valor original.
 
 #### Eliminar elementos de un array
 Para eliminar elementos de un array, utilice `unset`:
