@@ -301,12 +301,12 @@ echo ${fruits[@]} # Apple Desert fig Plum Banana Cherry
 ```
 
 ## Streams, pipes and lists
-Bash tiene poderosas herramientas para trabajar con otros programas y sus resultados. Usando flujos (strams), podemos enviar la salida de un programa a otro programa o archivo y, por lo tanto, escribir registros o lo que queramos.
+Bash tiene poderosas herramientas para trabajar con otros programas y sus resultados. Usando flujos (streams), podemos enviar la salida de un programa a otro programa o archivo y, por lo tanto, escribir registros o lo que queramos.
 
 Las tuberías (pipes) nos da la oportunidad de crear transportadores y controlar la ejecución de comandos.
 
 #### Streams
-Bash recibe entradas y envía salidas como secuencias o flujos de caracteres. Estos flujos se pueden redirigir a archivo o uno a otro.
+Bash recibe entradas y envía salidas como secuencias o flujos de caracteres. Estos flujos se pueden redirigir a archivos o uno a otro.
 
 Hay tres descriptores:
 Código | Descriptor | Descripción
@@ -315,7 +315,7 @@ Código | Descriptor | Descripción
 `1` | `stdout` | La salida estándar
 `2` | `stderr` | La salida de error
 
-La redirección permite controles a donde va la salida de un comando y de dónde proviene la entrada de un comando. Para redirigir flujos se utilizan estos operadores:
+La redirección permite controlar a dónde va la salida de un comando y de dónde proviene la entrada de un comando. Para redirigir flujos se utilizan estos operadores:
 Operador | Descripción
 -- | --
 `>` | Redirección de salida
@@ -341,15 +341,15 @@ less < errors.txt
 ```
 
 #### Pipes 
-Podríamos redirigir tranmisiones estándar no solo en archivos, sino también a otros programas. Los pipes (tuberías) nos permiten usar la salida de un programa como la entrada de otro.
+Podríamos redirigir transmisiones estándar no solo en archivos, sino también a otros programas. Los pipes (tuberías) nos permiten usar la salida de un programa como la entrada de otro.
 
 En el siguiente ejemplo, `command1` envía su salida a `command2`, que luego lo pasa a la entrada de `command3`:
 
     command1 | command2 | command3
 
-Las construcciones como estas se llamas pipes.
+Las construcciones como estas se llaman pipes.
 
-En la pŕactica, esto se puede utilizar para porcesar datos a través de varios programas. Por ejemplo, aquí la salida de `ls -l` se envía `grep`, que imprime solo archivos con extensión `.md`, y esta salida finalmente se envía a `less`:
+En la pŕactica, esto se puede utilizar para procesar datos a través de varios programas. Por ejemplo, aquí la salida de `ls -l` se envía `grep`, que imprime solo archivos con extensión `.md`, y esta salida finalmente se envía a `less`:
 
     ls -l | grep .md$ | less
 
