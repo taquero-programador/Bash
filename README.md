@@ -299,3 +299,88 @@ Para eliminar elementos de un array, utilice `unset`:
 unset fruits[0]
 echo ${fruits[@]} # Apple Desert fig Plum Banana Cherry
 ```
+
+## Streams, pipes and lists
+Bash tiene poderosas herramientas para trabajar con otros programas y sus resultados. Usando flujos (strams), podemos enviar la salida de un programa a otro programa o archivo y, por lo tanto, escribir registros o lo que queramos.
+
+Las tuberías (pipes) nos da la oportunidad de crear transportadores y controlar la ejecución de comandos.
+
+#### Streams
+Bash recibe entradas y envía salidas como secuencias o flujos de caracteres. Estos flujos se pueden redirigir a archivo o uno a otro.
+
+Hay tres descriptores:
+Código | Descriptor | Descripción
+-- | -- | --
+`0` | `stdin` | La entrada estándar
+`1` | `stdout` | La salida estándar
+`2` | `stderr` | La salida de error
+
+La redirección permite controles a donde va la salida de un comando y de dónde proviene la entrada de un comando. Para redirigir flujos se utilizan estos operadores:
+Operador | Descripción
+-- | --
+`>` | Redirección de salida
+`&>` | Salida de redirección y salida de error
+`&>>` | Agragar salida redirigida y salida de error
+`<` | Entrada de redirección
+`<<` | [Enlace](http://tldp.org/LDP/abs/html/here-docs.html)
+`<<<` | [Enlace](http://www.tldp.org/LDP/abs/html/x17837.html)
+
+Ejemplos del uso de redirecciónes:
+```bash
+# la salida de ls será escrito en list.txt
+ls -l > list.list
+
+# la salida la añade al final de archivo list.txt
+ls -a >> list.txt
+
+# todos los errores son escritos en errors.txt
+grep da * 2> errors.txt
+
+# lee error.txt
+less < errors.txt
+```
+
+#### Pipes 
+Podríamos redirigir tranmisiones estándar no solo en archivos, sino también a otros programas. Los pipes (tuberías) nos permiten usar la salida de un programa como la entrada de otro.
+
+En el siguiente ejemplo, `command1` envía su salida a `command2`, que luego lo pasa a la entrada de `command3`:
+
+    command1 | command2 | command3
+
+Las construcciones como estas se llamas pipes.
+
+En la pŕactica, esto se puede utilizar para porcesar datos a través de varios programas. Por ejemplo, aquí la salida de `ls -l` se envía `grep`, que imprime solo archivos con extensión `.md`, y esta salida finalmente se envía a `less`:
+
+    ls -l | grep .md$ | less
+
+El estado de salida de una canalización es normalmente el estado de salida del último comando de la canalización. El shell no devolverá un estado hasta que se haya completado todos los comandos de la canalización. Si desea que sus canalizaciones se consideren fallidas si alguno de los comandos falla, debe configurar la opción `pipefail`:
+
+    set -o pipfail
+
+#### Lista de comandos
+Una lista de comandos es una secuencia de uno o más conductos separados por `;`, `&`, `&&` o `||`.
+
+Si un comando es terminado por el operador de control `&`, el shell ejecuta el comando de forma asícrona en un subshell. En otras palabras, este comando se ejecuta en segundo plano.
+
+Comando separados por `;` se ejecutan secuencialmente: uno tras otro. El shell espera el final de cada comando.
+```bash
+command1 ; command2
+
+# es lo mismo que
+command1
+command2
+```
+
+Listas separadas port `&&` y `||` se denominan listas AND y OR.
+
+La lista AND se ve así:
+```bash
+# command2 se ejecuta si, solo si, command1 termina con exito (return 0 exit status)
+command1 && command2
+```
+
+La lista OR tiene la siguiente forma:
+```bash
+# command 2 se ejeucta si, solo si, command2 termina sin exito (retorna el código de error)
+command1 || command2
+```
