@@ -384,3 +384,121 @@ La lista OR tiene la siguiente forma:
 # command 2 se ejeucta si, solo si, command2 termina sin exito (retorna el código de error)
 command1 || command2
 ```
+
+## Declaraciones condicionales
+Como en otros lenguajes, las condiciones en Bash nos permiten decidir si realizar una acción o no. El resultado se determina evaluando una expresión que debe encerrarse entre `[[  ]]`.
+
+La expresión condicional puede contener `&&` y `||`, que son AND y OR. Además de esto, hay muchas otras expresiones útiles.
+
+Hay dos declaraciones condicionales diferentes: `if` y `case`.
+
+#### Expresiones primarias y combinadas
+Expresiones encerradas dentro de `[[  ]]` (o `[  ]` por `sh`) se denomina comandos de prueba o primarios. Estas expresiones nos ayudan a indicar los resultados de un condicional. En las siguients tablas, estamos usando `[  ]`, porque sirve también para `sh`. Aqu+i hay una respuesta sobre la diferencia, [enlace](http://serverfault.com/a/52050).
+
+Trabajando con el sistema de archivos:
+Primario | Significado
+-- | --
+`[ -e FILE ]` | cierto si `FILE` existe
+`[ -f FILE ]` | cierto si `FILE` existe y es un archivo regular
+`[ -d FILE ]` | cierto si `FILE` existe y es un directorio
+`[ -s FILE ]` | cierto si `FILE` existe y estpa vacío (peso menor de 0)
+`[ -r FILE ]` | cierto si `FILE` existe y es legible
+`[ -w FILE ]` | cierto si `FILE` existe y se puede escribir
+`[ -x FILE ]` | cierto si `FILE` existe y es ejecutable
+`[ -L FILE ]` | cierto si `FILE` existe y es simbólico
+`[ FILE1 -nt FILE2 ]` | FILE1 es más reciente que FILE2
+`[ FILE1 -ot FILE2 ]` | FILE1 es más antiguo que FILE2
+
+Trabajando con cadenas:
+Primario | Significado
+-- | --
+`[ -z STR ]` | STR está vacío
+`[ -n STR ]` | STR no está vacío
+`[ STR1 == STR2 ]` | STR1 y STR2 son iguales
+`[STR1 != STR2]` | no son iguales (`=` y `==` for string)
+
+Operadores binarios aritméticos:
+Primario | Significado
+-- | --
+`[ ARG1 -eq ARG2 ]` | ARG1 y ARG2 son iguales
+`[ ARG1 -ne ARG2 ]` | ARG1 no es igual a ARG2
+`[ ARG1 -lt ARG2 ]` | ARG1 es menor que ARG2
+`[ ARG1 -le ARG2 ]` | ARG1 es manor o igual a ARG2
+`[ ARG1 -gt ARG2 ]` | ARG1 es mayor que ARG2
+`[ ARG1 -ge ARG2 ]` | ARG1 es mayor o igual a ARG2
+
+Las condiciones se pueden combinar usando estas expresiones combinadas:
+Operación | Efecto
+-- | --
+`[ ! EXPR ]` | cierto si EXPR es falsa
+`[ (EXPR) ]` | devuelve el valor de EXPR
+`[ EXPR1 -a EXPR2 ]` | lógico AND. cierto si EXPR1 y EXPR2 son iguales
+`[ EXPR1 -o EXPR2 ]` | lógico OR. cierto si EXPR1 o EXPR2 son verdaderas
+
+Hay primarios más útiles y puede encontrarlos en la siguiente [página](http://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html).
+
+#### Usando declaración `if`
+Las sentencias `if` funcionan igual que en otros lenguajes de programación. Si la expresión entre llaves es verdadera, el código entre `then` y `fi` es ejecutado. `fi` indica el final de la condición.
+```bash
+#!/bin/bash
+
+# una sola línea
+if [[ 1 -eq 1 ]]; then echo "true"; fi
+
+# múltiples línea
+if [[ 1 -eq 1 ]]; then
+    echo "true"
+fi
+```
+
+De la misma manera, podríamos usar una declaración `if..else` como:
+```bash
+#!/bin/bash
+
+# single line
+if [[ 2 -ne 1 ]]; then echo "true"; else echo "false"; fi
+
+# multi line
+if [[ 2 -ne 1 ]]; then
+    echo "true"
+else
+    echo "false"
+fi
+```
+
+Algunaes veces las condiciones `if..else` no son suficientes para hacer lo que queremos hacer. En este caso no debemos olvidarnos de la declaración `if..elif..else`.
+
+Ejemplo:
+```bash
+#!/bin/bash
+
+if [[ `uname` == "Adam" ]]; then
+    echo "Do not eat an Apple!"
+elif [[ $(uname) == "Eva" ]]; then
+    echo "Do not take an Apple"
+else
+    echo "Apples are delicius"
+fi
+```
+
+#### Usando declaraciones `case`
+Si se enfrenta a un par de posibles acciones a realizar, entonces usar `case` puede ser más útil que una declaración `if` anidada. Para condiciones más complejas use `case`:
+```bash
+#!/bin/bash
+
+case "$extension" in
+    "jpg|jpeg") echo "image with jpg extension";;
+    "png") echo "image with png extension";;
+    "gif") echo "Oh, is giphy";;
+    *) echo "its not a image";;
+esac
+```
+
+Casa caso es un expresión que coincide con un patrón. El `|` signo se utiliza para separar múltiples patrones y el `)` operador termina una lista de patrones. Se ejecutan con comandos para el primer partido. `*` es el patrón para cualquier otra cosa que no coincida con los patrones definidos. Cada bloque de comandos debe dividirse con el operador `;;`.
+
+## Bucles
+Como en cualquier lenguaje de programación, un bucle en bash es un bucle de código que itera siempre que el control condicional sea verdadero.
+
+Hay cuatro tipos de bucles Bash: `for`, `while`, `until` y `select`.
+
+####
