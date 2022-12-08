@@ -393,7 +393,7 @@ La expresión condicional puede contener `&&` y `||`, que son AND y OR. Además 
 Hay dos declaraciones condicionales diferentes: `if` y `case`.
 
 #### Expresiones primarias y combinadas
-Expresiones encerradas dentro de `[[  ]]` (o `[  ]` por `sh`) se denomina comandos de prueba o primarios. Estas expresiones nos ayudan a indicar los resultados de un condicional. En las siguients tablas, estamos usando `[  ]`, porque sirve también para `sh`. Aqu+i hay una respuesta sobre la diferencia, [enlace](http://serverfault.com/a/52050).
+Expresiones encerradas dentro de `[[  ]]` (o `[  ]` por `sh`) se denomina comandos de prueba o primarios. Estas expresiones nos ayudan a indicar los resultados de un condicional. En las siguients tablas, estamos usando `[  ]`, porque sirve también para `sh`. Aquí hay una respuesta sobre la diferencia, [enlace](http://serverfault.com/a/52050).
 
 Trabajando con el sistema de archivos:
 Primario | Significado
@@ -401,7 +401,7 @@ Primario | Significado
 `[ -e FILE ]` | cierto si `FILE` existe
 `[ -f FILE ]` | cierto si `FILE` existe y es un archivo regular
 `[ -d FILE ]` | cierto si `FILE` existe y es un directorio
-`[ -s FILE ]` | cierto si `FILE` existe y estpa vacío (peso menor de 0)
+`[ -s FILE ]` | cierto si `FILE` existe y está vacío (peso menor de 0)
 `[ -r FILE ]` | cierto si `FILE` existe y es legible
 `[ -w FILE ]` | cierto si `FILE` existe y se puede escribir
 `[ -x FILE ]` | cierto si `FILE` existe y es ejecutable
@@ -466,7 +466,7 @@ else
 fi
 ```
 
-Algunaes veces las condiciones `if..else` no son suficientes para hacer lo que queremos hacer. En este caso no debemos olvidarnos de la declaración `if..elif..else`.
+Algunas veces las condiciones `if..else` no son suficientes para hacer lo que queremos hacer. En este caso no debemos olvidarnos de la declaración `if..elif..else`.
 
 Ejemplo:
 ```bash
@@ -494,11 +494,11 @@ case "$extension" in
 esac
 ```
 
-Casa caso es un expresión que coincide con un patrón. El `|` signo se utiliza para separar múltiples patrones y el `)` operador termina una lista de patrones. Se ejecutan con comandos para el primer partido. `*` es el patrón para cualquier otra cosa que no coincida con los patrones definidos. Cada bloque de comandos debe dividirse con el operador `;;`.
+Cada caso es un expresión que coincide con un patrón. El `|` signo se utiliza para separar múltiples patrones y el `)` operador termina una lista de patrones. Se ejecutan con comandos para el primer partido. `*` es el patrón para cualquier otra cosa que no coincida con los patrones definidos. Cada bloque de comandos debe dividirse con el operador `;;`.
 
 ## Bucles
 Como en cualquier lenguaje de programación, un bucle en bash es un bucle de código que itera siempre que el control condicional sea verdadero.
 
 Hay cuatro tipos de bucles Bash: `for`, `while`, `until` y `select`.
 
-####
+#### Ciclo `for`
