@@ -207,3 +207,95 @@ FILE="Favorite Things.txt"
 cat $FILE   # imprime dos archivos: `Favorite` and `Things.txt`
 cat "$FILE" # imprime un archivo: `Favorite Things.txt`
 ```
+
+## Arrays
+Como en otros lenguajes de programación. un array en bash es una variable que te permite referirte a múltiples valores. En bash, los arraya también se vasan en cero, es decir, el primer elemento de un arrays es `0`.
+
+Cuando se trata de arrays, debemos tener en cuenta la variable de entorno especial `IFS`. `IFS`, o separador de campos de entrada, es el carácter que separa los elementos de un array. El valor predeterminado es un espacio vacío `IFS=' '`.
+
+#### Declaración de array
+En bash, creá un array simplemente asignando un valor a un índice en la variable del aray:
+```bash
+#!/bin/bash
+
+fruits[0]=Apple
+fruits[1]=Pear
+fruits[2]=Plum
+```
+Los arrays también se pueden crear utilizando asignaciones compuestas como:
+```bash
+fruits=(Apple Pear Plum 'Two Apples')
+```
+
+#### Expansión de arrays
+Los elementos individuales de array se expanden de manera similar a otras variables.
+```bash
+echo ${fruits[1]} # Pear
+```
+
+El array completo se puede expandir usando `*` o `@` en lugar del indice numérico:
+```bash
+echo ${fruits[*]} # Apple Pear Plum
+echo ${fruits[@]} # apple Pear Plum
+```
+
+Hay una diferencia importante (y sutil) entre las dos líneas anteriores, considere un elemento de array que contenga espacios en blanco:
+```bash
+#!/bin/bash
+
+fruits[0]=Apple
+fruits[1]="Desert fig"
+fruits[2]=Plum
+```
+Queremos imprimir cada elemento del arrya en una línea separada, así que tratamos de usar `printf`:
+```bash
+printf "+ %s\n" ${fruits[*]}
+
+# salida
++ Apple
++ Desert
++ fig
++ Plum
+```
+Por qué estaba `Desert` y `fig` impreso en líneas separadas? Tratemos de usar comillas:
+```bash
+
+printf "+ %s\n" ${fruits[*]}
+
+# salida
++ Apple Desert fig Plum
+```
+Ahora todo está en una sola línea. Aquí es donde entra `${fruits[@]}`:
+```bash
+
+printf "+ %s\n" ${fruits[@]}
+
+# salida
++ Apple
++ Desert fig
++ Plum
+```
+Dentro de comillas dobles, `${fruits[@]}` se expande a un argumento separado para cada elemento del array; se conserva los espacios en blnaco en los elementos del array.
+
+#### Segmento de array
+Además, podemos extraer una porción del array usando los operadores de proción `:`:
+```bash
+echo ${fruits[@]:0:2} # Appele Desert fig
+```
+En el ejemplo anterior, ${fruits[@]} se expande a todo el contenido del array, y `:0:2` extrar el segmento de longuitud 2, que comienza en el indice 0.
+
+#### Adición de elementos a un array
+Agregar elementos a un array también es bastante simple. Las asignaciones compuestas son especialmente útiles en este caso. Se puede usar así:
+```bash
+fruits=(Orange ${fruits[@]} Banana Cherry)
+
+echo ${fruits[@]}
+```
+En el ejemplo anterior, `${fruits[@]}` expande a todo el contenido del array y lo sustituye en la asignación compuestas, luego asigna el nuevo valor en el array `fruits` mutando su valor original.
+
+#### Eliminar elementos de un array
+Para eliminar elementos de un array, utilice `unset`:
+```bash
+unset fruits[0]
+echo ${fruits[@]} # Apple Desert fig Plum Banana Cherry
+```
