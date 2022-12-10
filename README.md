@@ -355,7 +355,7 @@ En la pŕactica, esto se puede utilizar para procesar datos a través de varios 
 
 El estado de salida de una canalización es normalmente el estado de salida del último comando de la canalización. El shell no devolverá un estado hasta que se haya completado todos los comandos de la canalización. Si desea que sus canalizaciones se consideren fallidas si alguno de los comandos falla, debe configurar la opción `pipefail`:
 
-    set -o pipfail
+    set -o pipefail
 
 #### Lista de comandos
 Una lista de comandos es una secuencia de uno o más conductos separados por `;`, `&`, `&&` o `||`.
@@ -381,7 +381,7 @@ command1 && command2
 
 La lista OR tiene la siguiente forma:
 ```bash
-# command 2 se ejeucta si, solo si, command2 termina sin exito (retorna el código de error)
+# command 2 se ejecuta si, solo si, command2 termina sin exito (retorna el código de error)
 command1 || command2
 ```
 
