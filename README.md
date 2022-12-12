@@ -108,7 +108,7 @@ Variable | Descripción
 -- | --
 `$HOME` | El directorio de inicio del usuario actual
 `$PATH` | Una lista de directorios separados por dos puntos en los que el shell busca comandos
-`$PDW` | El directorio de trabajo actual
+`$PWD` | El directorio de trabajo actual
 `$RANDOM` | Entero aleatorio entre 0 y 32767
 `$UID` | El ID numérico del usuario real actual
 `$PS1` | La cadena de mensaje pricipal
