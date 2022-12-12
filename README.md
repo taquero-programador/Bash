@@ -381,7 +381,7 @@ command1 && command2
 
 La lista OR tiene la siguiente forma:
 ```bash
-# command 2 se ejecuta si, solo si, command2 termina sin exito (retorna el código de error)
+# command 2 se ejecuta si, solo si, command1 termina sin exito (retorna el código de error)
 command1 || command2
 ```
 
