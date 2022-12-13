@@ -188,7 +188,7 @@ echo $(( x + y  ))
 ```
 
 #### Comillas simples y dobles
-Hay una diferecia importante entre comillas simples y dobles. Dentro de las comillas dobles. las variables o sustituciones de comandos se expanden. Dentro de comillas simples no lo son. Por ejemplo:
+Hay una diferecia importante entre comillas simples y dobles. Dentro de las comillas dobles, las variables o sustituciones de comandos se expanden. Dentro de comillas simples no lo son. Por ejemplo:
 ```bash
 echo "Home is: $HOME" # Home is: /home/user
 echo 'Home is: $HOME' # Home is: $HOME
@@ -414,8 +414,8 @@ Primario | Significado
 -- | --
 `[ -z STR ]` | STR está vacío
 `[ -n STR ]` | STR no está vacío
-`[ STR1 == STR2 ]` | STR1 y STR2 son iguales
-`[STR1 != STR2]` | no son iguales (`=` y `==` for string)
+`[ STR1 == STR2 ]` | STR1 y STR2 son iguales (`=` y `==` for string)
+`[STR1 != STR2]` | no son iguales
 
 Operadores binarios aritméticos:
 Primario | Significado
