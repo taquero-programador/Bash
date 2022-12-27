@@ -623,3 +623,93 @@ for (( i=0; i < 10; i++ )); do
 done
 ```
 Imprimirá los números impares del 0 al 9.
+
+## Funciones
+En los scripts tenemos la capacidad de definir y llamar funciones. Como en cualquier lenguaje de programación, las funciones en bash son fragmentos de código, pero exiten diferencias.
+
+En bash, las funciones son una secuencia de comandos agrupados sobre solo un nombre, ese es el nombre de la funcion. Llamar una función es lo mismo que llamar a cualquier otro programa, solo se escribe el nombre y se invocará la función.
+
+Podemos declarar nuestra propia función de esta manera:
+```bash
+my_func () {
+...
+}
+
+my_func
+```
+Debemos declarar funciones antes de poder invocarlas.
+
+Las funciones pueden tomar argumentos y devolver un resultado: código de salida. Los argumentos, dentro de las funciones, se tratan de la misma manera que los argumentos dados al script en modo interactivo, utilizando parámetros posicionales. se puede devolver un código de resultado usando `return`.
+
+Ejemplo donde toma un nombre y devuleve `0`, lo que indica una ejecución exitosa:
+```bash
+#!/bin/bash
+
+# función con parámetros
+
+greeting () {
+    if [[ -n $1 ]]; then
+        echo "Hello, $1!"
+    else
+        echo "Hello, unkown!"
+    fi
+    return 0
+}
+
+greeting Denys
+greeting
+```
+El comando `return` sin ningún argumento devuelve el código de salida del último comando ejecutado. Arriba, `return 0` devolverá un código de salida exitoso `0`.
+
+#### Depuración
+El shell nos brinda herramientas para depurar scripts. Si queremos ejecutar un script en modo de depuración, usamos una opción especial en el shebang de nuestro script:
+```bash
+#!/bin/bash options
+```
+Estas opciones son configuraciones que cambian el comportamiento del shell. La siguiente tabla es una lista de opciones que pueden ser útiles:
+Short | Nombre | Descripción
+-- | -- | --
+`-f` | noglob | Deshabilite la opción del nombre de archivo (globbing).
+`-i` | interactive | El script se ejecuta en modo interactivo.
+`-n` | noexec | Leer comandos, pero no ejecutarlos (comprobración sin sintaxis).
+     | pipefail | Haga que las canalizaciones fallen si algún comando falla, no solo si falla el comando final.
+`-t` | - | Salga después del primer comando.
+`-v` | verbose | Imprime cada comando para `stderr` antes de ejecutarlo.
+`-x` | xtrace | Imprimira cada comando y sus argumentos expandidos para `stderr` antes de ejecutarlo.
+
+Por ejemplo, tenemos un script con la opción `-x`:
+```bash
+#!/bin/bash -x
+
+num=0
+
+while [[ $num -lt 3 ]]; do
+    echo $num
+    num=$((num+1))
+done
+```
+Esto imprimirá el valor de las variables a `stdout` junto con otra información útil:
+```bash
++ num=0
++ [[ 0 -lt 3 ]]
++ echo 0
++ num=1
++ [[ 1 -lt 3 ]]
++ echo 1
++ num=2
++ [[ 2 -lt 3 ]]
++ echo 2
++ num=3
++ [[ 3 -lt 3 ]]
+```
+
+A veces necesitamos depurar una parte del script. En este caso usando el comando `set`. Este comando puede habilitar o deshabilitar opciones. Las opciones se activan usando `-` y se apagan usando `+`:
+```bash
+#!/bin/bash
+
+echo "xtrace está agado"
+set -x
+echo "xtrace está habilitado"
+set +x
+echo "xtraces está apagado de nuevo"
+```
