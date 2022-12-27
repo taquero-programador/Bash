@@ -672,7 +672,7 @@ Short | Nombre | Descripción
 `-f` | noglob | Deshabilite la opción del nombre de archivo (globbing).
 `-i` | interactive | El script se ejecuta en modo interactivo.
 `-n` | noexec | Leer comandos, pero no ejecutarlos (comprobración sin sintaxis).
-     | pipefail | Haga que las canalizaciones fallen si algún comando falla, no solo si falla el comando final.
+`empty`   | pipefail | Haga que las canalizaciones fallen si algún comando falla, no solo si falla el comando final.
 `-t` | - | Salga después del primer comando.
 `-v` | verbose | Imprime cada comando para `stderr` antes de ejecutarlo.
 `-x` | xtrace | Imprimira cada comando y sus argumentos expandidos para `stderr` antes de ejecutarlo.
