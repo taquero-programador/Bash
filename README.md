@@ -713,3 +713,62 @@ echo "xtrace está habilitado"
 set +x
 echo "xtraces está apagado de nuevo"
 ```
+
+## Lectura de la entrada del usuario
+El usuario puede ingresar datos en variables de shell usando el comando `read`.
+
+#### `read`
+Este comando lee la entrade de `stdin` en variables.
+```bash
+read [-ers] [-a array] [-d delim] [-i text] [-n nchars] [-N nchars]
+     [-p prompt] [-t timeout] [-u fd] [variable1 ...] [variable2 ...]
+```
+Si no se proporcionan nombres de variables, la entrada del usuario se almacena en la variable `$REPLY` por defecto.
+```bash
+#!/bin/bash
+
+read # espera una entrada del usuario
+echo $REPLY # imprime el texto
+```
+
+Short | Nombre | Descripción
+-- | -- | --
+`-a` | array | Almacene las palabras en una matriz indexada llamada `$array`
+`-e` | | Leer datos de la termianl carácter por carácter hasta alcanzar el delimitador
+`-d` | delimiter | Establezca el carácter delimitador en el delimitador especifico. newline(\n) es el delimitador por defecto.
+`-n` | nchars | Deja de leer cuando se leen n caracteres o delimitadores.
+`-N` | nchars | Detiene la lectura solo cuando se leen n caracteres o EOF, ignora el delimitador.
+`-p` | prompt | Imprime una cadena de aviso en la consola.
+`-i` | interactive | Imprime texto de marcador de posición que el usuario puede modificar usando junto con `-e`.
+`-r` | raw input | Deshabilita la interpretación de shell de caracteres especiales como `$` y `*`.
+`-s` | silent | Deshabilitar el eco de los caracteres leídos en la terminal.
+`-t` | timout | Espera cierta cantidad de tiempo antes de salir.
+`-u` | file descriptor | Lee la entrada del descriptor del archivo especificado.
+
+```bash
+#!/bin/bash
+
+read -p "Enter your name: " name
+echo Hello, "$name"!
+
+read -sp "Enter your password: " password
+if [[ $password -eq "1234" ]]; then
+    echo -e "\nSuccess!"
+else
+    echo -e "\nTry Again!"
+fi
+
+echo ""
+read -p "Enter numbers: " -a array
+echo -e "\nTotal numbers: ${#array[@]}"
+echo ${array[@]}
+```
+Salida:
+```bash
+Hello, Debian!
+
+Success!
+
+Total numbers: 7
+1 2 3 44 5 6 7
+```
