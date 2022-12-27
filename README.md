@@ -734,7 +734,7 @@ echo $REPLY # imprime el texto
 Short | Nombre | Descripción
 -- | -- | --
 `-a` | array | Almacene las palabras en una matriz indexada llamada `$array`
-`-e` | | Leer datos de la termianl carácter por carácter hasta alcanzar el delimitador
+`-e` | | Leer datos de la terminal carácter por carácter hasta alcanzar el delimitador
 `-d` | delimiter | Establezca el carácter delimitador en el delimitador especifico. newline(\n) es el delimitador por defecto.
 `-n` | nchars | Deja de leer cuando se leen n caracteres o delimitadores.
 `-N` | nchars | Detiene la lectura solo cuando se leen n caracteres o EOF, ignora el delimitador.
